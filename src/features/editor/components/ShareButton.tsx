@@ -34,7 +34,11 @@ export function ShareButton() {
       }
 
       const result = await response.json();
-      setShareUrl(`http://localhost:3000/share/${result.name}`);
+      setShareUrl(
+        `${process.env.NEXT_PUBLIC_APP_URL ?? window.location.origin}/share/${
+          result.name
+        }`
+      );
     } catch (error) {
       setError('An error occurred while saving');
     } finally {
