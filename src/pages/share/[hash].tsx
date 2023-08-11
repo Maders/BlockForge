@@ -33,6 +33,15 @@ interface SharePageProps {
 export const getServerSideProps: GetServerSideProps<SharePageProps> = async ({
   params,
 }) => {
+  if (process.env.NEXT_PUBLIC_IS_SERVED_FROM_VERCEL) {
+    /* 
+      NOTE:
+      Sharing mechanisms utilize the local file system, which is not persistent in serverless deployment environments like Vercel. 
+      In such an environment, it is advisable to abstract the process of saving and reading JSON files by employing a distributed file system such as Amazon S3, and similar alternatives.
+    */
+    return { notFound: true };
+  }
+
   try {
     const hash = params?.hash as string;
     const filePath = join(process.cwd(), DB_DIR_NAME, `${hash}.json`);

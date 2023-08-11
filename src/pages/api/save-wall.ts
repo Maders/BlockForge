@@ -13,6 +13,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  if (process.env.NEXT_PUBLIC_IS_SERVED_FROM_VERCEL) {
+    /* 
+      NOTE:
+      Sharing mechanisms utilize the local file system, which is not persistent in serverless deployment environments like Vercel. 
+      In such an environment, it is advisable to abstract the process of saving and reading JSON files by employing a distributed file system such as Amazon S3, and similar alternatives.
+    */
+    return res.status(400);
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

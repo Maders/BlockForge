@@ -22,7 +22,11 @@ export function EditorNavbar() {
       <div className="space-x-2 justify-end flex">
         <Separator orientation="vertical" />
         <ResetWallButton />
-        <ShareButton />
+        {/* NOTE:
+          Sharing mechanisms utilize the local file system, which is not persistent in serverless deployment environments like Vercel. 
+          In such an environment, it is advisable to abstract the process of saving and reading JSON files by employing a distributed file system such as Amazon S3, and similar alternatives. 
+        */}
+        {!process.env.NEXT_PUBLIC_IS_SERVED_FROM_VERCEL && <ShareButton />}
         <Link href="/view" target="_blank">
           <Button>
             <Eye className="h-4 w-4" />
