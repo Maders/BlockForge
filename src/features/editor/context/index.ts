@@ -1,1 +1,1 @@
-export { BlocksProvider, useBlocksContext } from './BlocksContext';
+export { BlocksProvider, useBlocks } from './BlocksContext';

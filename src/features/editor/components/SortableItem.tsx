@@ -13,22 +13,16 @@ export function SortableItem(props: { id: string; children: React.ReactNode }) {
   return (
     <div ref={setNodeRef} style={style} className="relative">
       {props.children}
-      <DragHandle id={props.id} />
     </div>
   );
 }
 
-function DragHandle({ id }: { id: string }) {
+export function DragHandle({ id }: { id: string }) {
   const { attributes, listeners, setNodeRef } = useSortable({ id });
 
   return (
-    <div
-      className="absolute top-0 right-0 m-4"
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-    >
-      <GripVertical className="h-4 w-4" />
+    <div ref={setNodeRef} {...attributes} {...listeners}>
+      <GripVertical className="h-4 w-4 cursor-pointer" />
     </div>
   );
 }

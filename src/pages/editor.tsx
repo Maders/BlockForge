@@ -1,8 +1,8 @@
-import { AddBlocksDialog, EditorNavbar } from '~/features/editor/components';
+import { AddBlocksDialog } from '~/features/editor/components';
 import { BlocksProvider } from '~/features/editor/context';
 import dynamic from 'next/dynamic';
 
-const DynamicEditorBoardPage = dynamic(
+const EditorBoardPage = dynamic(
   () =>
     import('~/features/editor/EditorBoardPage').then(
       (component) => component.EditorBoardPage
@@ -13,7 +13,7 @@ const DynamicEditorBoardPage = dynamic(
   }
 );
 
-const DynamicEditorNavbar = dynamic(
+const EditorNavbar = dynamic(
   () =>
     import('~/features/editor/components/EditorNavbar').then(
       (component) => component.EditorNavbar
@@ -28,9 +28,9 @@ export default function EditorPage() {
   return (
     <div className="container">
       <BlocksProvider>
-        <DynamicEditorNavbar />
+        <EditorNavbar />
 
-        <DynamicEditorBoardPage />
+        <EditorBoardPage />
 
         <div className="fixed bottom-10 right-10">
           <AddBlocksDialog />

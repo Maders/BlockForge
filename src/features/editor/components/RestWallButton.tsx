@@ -1,5 +1,4 @@
 import { RotateCcw } from 'lucide-react';
-import { Button } from '~/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -9,30 +8,31 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '~/components/ui/dialog';
-import { useBlocksContext } from '../context';
-import { defaultValue } from '../context/BlocksContext';
+  Button,
+} from '~/components/ui';
 
-export function DeleteWallButton() {
-  const { setBlocks } = useBlocksContext();
+import { useBlocks } from '~/features/editor/context';
+import { PERSIST_KEY } from '~/features/editor/constatns';
+
+export function ResetWallButton() {
+  const { dispatch } = useBlocks();
   function handleDeleteWall() {
-    localStorage.clear();
-    setBlocks(defaultValue);
+    localStorage.removeItem(PERSIST_KEY);
+    dispatch({ type: 'RESET_BLOCKS' });
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="secondary">
-          <RotateCcw className="mr-2 h-4 w-4" />
-          <span>Reset</span>
+          <RotateCcw className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[475px]">
         <DialogHeader>
           <DialogTitle>Reset the wall</DialogTitle>
           <DialogDescription>
-            Do you sure for reseting the wall?
+            Are you sure you want reset the wall?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
